@@ -17,6 +17,7 @@ public class SimpleFPSControllerAlt : MonoBehaviour
     void Start()
     {
         thisCharacterController = GetComponent<CharacterController>();
+        Cursor.visible = false;
     }
 
     // Update is called once per frame
@@ -37,8 +38,16 @@ public class SimpleFPSControllerAlt : MonoBehaviour
 		inputVector = transform.forward * forwardBackward; // forward
 		inputVector += transform.right * rightLeft; // strafe
 
-        thisCharacterController.Move((inputVector * moveSpeed) + (Physics.gravity * 0.69f));
+        thisCharacterController.Move((inputVector * moveSpeed*.1f) + (Physics.gravity * 0.69f)  * Time.deltaTime);
 
+    }
+
+    void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        if (hit.gameObject.tag.Equals("Situation"))
+        {
+            print(hit.gameObject.name);
+        }
     }
 
 }
